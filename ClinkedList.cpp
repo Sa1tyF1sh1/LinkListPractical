@@ -9,7 +9,24 @@ ClinkedList::ClinkedList()
 
 ClinkedList::~ClinkedList()
 {
+	if (firstNode == nullptr)
+	{
+		// Link List is empty
+		std::cout << "List Is Empth.";
 
+	}
+	else
+	{
+		// Link List is not empty
+		CNode* currentNode = firstNode;
+
+		while (currentNode != nullptr)
+		{
+			currentNode = currentNode->getNextPtr();
+			delete firstNode;
+			firstNode = currentNode;
+		}
+	}
 }
 
 void ClinkedList::addToListFront(int _newData)
@@ -84,17 +101,116 @@ void ClinkedList::addToPosition(int _newData,int _pos)
 
 void ClinkedList::deleteToListFront()
 {
+	if (firstNode == nullptr)
+	{
+		//Link List is empty
+		std::cout << "Nothing to delete";
+	}
+	else if (firstNode == lastNode)
+	{
+		//Link List only left with 1 node
+		/*CNode* temp = firstNode;
+		firstNode = firstNode->getNextPtr();*/
+		delete firstNode;
+		firstNode = nullptr;
+		lastNode = nullptr;
+	}
+	else
+	{
+		CNode* temp = firstNode;
+		firstNode = firstNode->getNextPtr();
+		delete temp;
+	}
 
 }
+
 void ClinkedList::deleteToListBack()
 {
-	
+	if (firstNode == nullptr)
+	{
+		//Link List is empty
+		std::cout << "Nothing to delete";
+	}
+	else if (firstNode = lastNode)
+	{
+		//Link List only left with 1 node
+				/*CNode* temp = firstNode;
+				firstNode = firstNode->getNextPtr();*/
+		delete firstNode;
+		firstNode = nullptr;
+		lastNode = nullptr;
+	}
+	else
+	{
+		CNode* currentNode = firstNode;
+		while (currentNode->getNextPtr() != lastNode)
+		{
+			currentNode = currentNode->getNextPtr();
+		}
+		delete lastNode;
+		lastNode = currentNode;
+		currentNode->setNextPtr(nullptr);
+	}
+}
 
+void ClinkedList::DelValue(int _value)
+{
+	if (firstNode == nullptr)
+	{
+		std::cout << "Link List Is Empty" << '\n';
+	}
+	else
+	{
+		CNode* currentNode = firstNode;
+		CNode* b4CurrentNode = nullptr;
+
+		bool found = false;
+
+		while (currentNode != nullptr)
+		{
+			if (currentNode->getData() == _value) 
+			{
+				found = true;
+				
+				break;
+			}
+			else
+			{
+				b4CurrentNode = currentNode;
+				currentNode = currentNode->getNextPtr();
+			}
+		}
+		//Try to match the no. that user want to delete
+		if (!found)
+		{
+			std::cout << "Not Found!";
+		}
+		else
+		{
+			//If the value found at the first Line
+			if (currentNode == firstNode)
+			{
+				deleteToListFront();
+			}
+			//If the value found at the last line
+			else if(currentNode == lastNode)
+			{
+				deleteToListBack();
+			}
+			//If the value found at the middle of the list
+			else
+			{
+				b4CurrentNode->setNextPtr(currentNode->getNextPtr());
+				delete currentNode;
+			}
+		}
+	}
 }
 
 void ClinkedList::printAllNodeData()
 {
 	CNode* tempPtr = firstNode;
+
 	if (firstNode == nullptr)
 	{
 		std::cout << "Link List is empty." << '\n';
@@ -106,7 +222,7 @@ void ClinkedList::printAllNodeData()
 			std::cout << tempPtr->getData();
 			if (tempPtr != lastNode)
 			{
-				std::cout << '-' << '\n';
+				std::cout << '-';
 			}
 			tempPtr = tempPtr->getNextPtr();
 		}

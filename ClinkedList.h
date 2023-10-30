@@ -3,9 +3,9 @@
 
 class ClinkedList
 {
-
 	CNode* firstNode;
 	CNode* lastNode;
+
 public:
 	ClinkedList();
 	~ClinkedList();
@@ -17,6 +17,8 @@ public:
 
 	void deleteToListFront();
 	void deleteToListBack();
+
+	void DelValue(int _value);
 
 	void printAllNodeData();
 

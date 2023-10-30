@@ -4,9 +4,14 @@ class CNode
 {
 
 	int dataNo;
+
+
+
+
 	CNode* nextPtr;
 
 public:
+
 	CNode(int _data);
 
 	int getData();
